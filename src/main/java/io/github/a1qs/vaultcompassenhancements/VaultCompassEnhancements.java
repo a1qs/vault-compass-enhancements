@@ -2,6 +2,7 @@ package io.github.a1qs.vaultcompassenhancements;
 
 import com.mojang.logging.LogUtils;
 import io.github.a1qs.vaultcompassenhancements.client.RenderVaultCompassHud;
+import io.github.a1qs.vaultcompassenhancements.client.SetCompassPositionHandler;
 import io.github.a1qs.vaultcompassenhancements.network.ModNetwork;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.client.ClientRegistry;

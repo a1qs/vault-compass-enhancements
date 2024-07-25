@@ -76,23 +76,4 @@ public class CompassTargetRequestPacket {
             }
         });
     }
-
-//    private static void setCompassTarget(Player player, ServerLevel level, BlockPos pos) {
-//        System.out.println("Setting the Compass Target for level: " + level);
-//        Optional<ServerVault> serverVaultOptional = ServerVaults.get(level);
-//        if (serverVaultOptional.isPresent()) {
-//            ServerVault serverVault = serverVaultOptional.get();
-//            System.out.println("ServerVault found: " + serverVault);
-//            Listeners listeners = serverVault.get(Vault.LISTENERS);
-//            System.out.println("Listeners found: " + listeners);
-//            if (listeners.contains(player.getUUID())) {
-//                listeners.get(player.getUUID()).set(Listener.COMPASS_TARGET, pos);
-//                System.out.println("Set The Compass Target to: " + pos);
-//            } else {
-//                System.out.println("Listeners do not contain player UUID: " + player.getUUID());
-//            }
-//        } else {
-//            System.out.println("No ServerVault found for level: " + level);
-//        }
-//    }
 }

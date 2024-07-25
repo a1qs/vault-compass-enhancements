@@ -1,5 +1,6 @@
-package io.github.a1qs.vaultcompassenhancements;
+package io.github.a1qs.vaultcompassenhancements.client;
 
+import io.github.a1qs.vaultcompassenhancements.VaultCompassEnhancements;
 import io.github.a1qs.vaultcompassenhancements.network.CompassTargetRequestPacket;
 import io.github.a1qs.vaultcompassenhancements.network.ModNetwork;
 import net.minecraft.client.Minecraft;

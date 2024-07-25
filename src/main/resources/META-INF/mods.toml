@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[40,)"
 license="GPLv3"
-#issueTrackerURL="https://github.com/a1qs"
+issueTrackerURL="https://github.com/a1qs/vault-compass-enhancements/issues"
 
 [[mods]]
 modId="vaultcompassenhancements"

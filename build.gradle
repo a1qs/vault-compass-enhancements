@@ -2,13 +2,11 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = 'https://repo.spongepowered.org/maven' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 
@@ -18,10 +16,9 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'org.spongepowered.mixin'
 
 
-version = '0.x.x-1.18.2'
+version = '1.0.0-3.14.3'
 group = 'io.github.a1qs.vaultcompassenhancements'
 archivesBaseName = 'vaultcompassenhancements'
 
@@ -33,9 +30,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            property 'mixin.env.remapRefMap', 'true'
             property 'forge.logging.markers', 'REGISTRIES'
-            arg "-mixin.config=vaultcompassenhancements.mixin.json"
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'vaultcompassenhancements'
 
@@ -48,12 +43,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=vaultcompassenhancements.mixin.json"
-
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'vaultcompassenhancements'
 
             mods {
@@ -65,7 +56,6 @@ minecraft {
 
         gameTestServer {
             workingDirectory project.file('run')
-            arg "-mixin.config=vaultcompassenhancements.mixin.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -79,7 +69,6 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            arg "-mixin.config=vaultcompassenhancements.mixin.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -116,8 +105,6 @@ dependencies {
     implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637292")
 
     runtimeOnly fg.deobf("curse.maven:ferritecore-429235:4074294")
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 jar {
@@ -151,9 +138,4 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-mixin {
-    add sourceSets.main, 'vaultcompassenhancements.mixin-refmap.json'
-    config 'vaultcompassenhancements.mixin.json'
 }
