@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GPLv3"
+#issueTrackerURL="https://github.com/a1qs"
+
+[[mods]]
+modId="vaultcompassenhancements"
+version="${file.jarVersion}"
+displayName="Vault Compass Enhancements"
+#displayURL="https://github.com/a1qs"
+#logoFile="vaultcompassenhancements.png"
+authors="a1qs"
+description='''
+This mod is a mod designed to work with Vault Hunters 3rd edition
+This mod provides players with a Curios slot for the Vault Compass which shows on the HUD and allows players to rebind the Compass' location via a keybind
+'''
+
+[[dependencies.vaultcompassenhancements]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.vaultcompassenhancements]]
+    modId="the_vault"
+    mandatory=true
+    versionRange="[1.18.2-3.11.0.2514,)"
+    ordering="NONE"
+    side="BOTH"

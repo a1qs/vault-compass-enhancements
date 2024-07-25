@@ -1,0 +1,159 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'org.spongepowered.mixin'
+
+
+version = '0.x.x-1.18.2'
+group = 'io.github.a1qs.vaultcompassenhancements'
+archivesBaseName = 'vaultcompassenhancements'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'parchment', version: '1.18.1-2022.03.06-1.18.2'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'forge.logging.markers', 'REGISTRIES'
+            arg "-mixin.config=vaultcompassenhancements.mixin.json"
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'vaultcompassenhancements'
+
+            mods {
+                vaultcompassenhancements {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            arg "-mixin.config=vaultcompassenhancements.mixin.json"
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'vaultcompassenhancements'
+
+            mods {
+                vaultcompassenhancements {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+            arg "-mixin.config=vaultcompassenhancements.mixin.json"
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'vaultcompassenhancements'
+            mods {
+                vaultcompassenhancements {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            arg "-mixin.config=vaultcompassenhancements.mixin.json"
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'vaultcompassenhancements', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            mods {
+                vaultcompassenhancements {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        url "https://www.cursemaven.com"
+    }
+}
+
+dependencies {
+
+    minecraft 'net.minecraftforge:forge:1.18.2-40.2.9'
+    implementation fg.deobf("curse.maven:vault-hunters-official-mod-458203:5413414")
+
+    implementation fg.deobf("curse.maven:curios-309927:4418032")
+    implementation fg.deobf("curse.maven:quark-243121:3840125")
+    implementation fg.deobf("curse.maven:autoreglib-250363:3642382")
+    implementation fg.deobf("curse.maven:geckolib-388172:4181370")
+    implementation fg.deobf("curse.maven:jei-238222:4593548")
+    implementation fg.deobf("curse.maven:sophisticated-backpacks-vault-hunters-edition-696425:4287544")
+    implementation fg.deobf("curse.maven:sophisticated-core-618298:4665730")
+    implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637292")
+
+    runtimeOnly fg.deobf("curse.maven:ferritecore-429235:4074294")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "vaultcompassenhancements",
+                "Specification-Vendor"    : "vaultcompassenhancementssareus",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "vaultcompassenhancementssareus",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+mixin {
+    add sourceSets.main, 'vaultcompassenhancements.mixin-refmap.json'
+    config 'vaultcompassenhancements.mixin.json'
+}
