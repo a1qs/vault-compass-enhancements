@@ -28,7 +28,7 @@ public class VaultCompassEnhancements {
         eventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new SetCompassPositionHandler());
+
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
@@ -36,6 +36,7 @@ public class VaultCompassEnhancements {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(new SetCompassPositionHandler());
         MinecraftForge.EVENT_BUS.register(new RenderVaultCompassHud());
         set_compass_position = new KeyMapping("key.vaultcompassenhancements.set_compass_position", GLFW.GLFW_KEY_KP_SUBTRACT, "key.category.vaultcompassenhancements");
         toggle_hud = new KeyMapping("key.vaultcompassenhancements.toggle_hud", GLFW.GLFW_KEY_KP_MULTIPLY, "key.category.vaultcompassenhancements");
