@@ -44,6 +44,5 @@ public class VaultCompassEnhancements {
         ClientRegistry.registerKeyBinding(toggle_hud);
 
     }
-    //mod that shows vault compass on hud and keybind to set pos
     //configurable position of the hud?
 }
